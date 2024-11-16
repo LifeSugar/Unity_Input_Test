@@ -36,16 +36,16 @@ public class XboxControllerFullTest : MonoBehaviour
         string inputLog = "";  // 用于记录手柄输入的字符串
 
         // 检查所有按键的输入
-        if (Input.GetButtonDown(StaticStrings.A)) inputLog += "A Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.B)) inputLog += "B Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.X)) inputLog += "X Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.Y)) inputLog += "Y Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.LB)) inputLog += "LB Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.RB)) inputLog += "RB Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.L)) inputLog += "L Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.R)) inputLog += "R Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.View)) inputLog += "View Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.Menu)) inputLog += "Menu Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.A)) inputLog = "A Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.B)) inputLog = "B Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.X)) inputLog = "X Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.Y)) inputLog = "Y Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.LB)) inputLog = "LB Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.RB)) inputLog = "RB Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.L)) inputLog = "L Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.R)) inputLog = "R Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.View)) inputLog = "View Pressed\n";
+        if (Input.GetButtonDown(StaticStrings.Menu)) inputLog = "Menu Pressed\n";
 
 #if UNITY_STANDALONE_WIN
         // Windows平台的DPad使用两个轴来判断方向
@@ -96,11 +96,58 @@ public class XboxControllerFullTest : MonoBehaviour
             isDPadRightPressed = false;  // 重置状态
         }
 #elif UNITY_STANDALONE_OSX
-        // Mac平台的DPad使用四个单独的按钮
-        if (Input.GetButtonDown(StaticStrings.DPadUp)) inputLog += "DPad Up Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.DPadDown)) inputLog += "DPad Down Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.DPadLeft)) inputLog += "DPad Left Pressed\n";
-        if (Input.GetButtonDown(StaticStrings.DPadRight)) inputLog += "DPad Right Pressed\n";
+        // // Mac平台的DPad使用四个单独的按钮
+        // if (Input.GetButtonDown(StaticStrings.DPadUp)) inputLog = "DPad Up Pressed\n";
+        // if (Input.GetButtonDown(StaticStrings.DPadDown)) inputLog = "DPad Down Pressed\n";
+        // if (Input.GetButtonDown(StaticStrings.DPadLeft)) inputLog = "DPad Left Pressed\n";
+        // if (Input.GetButtonDown(StaticStrings.DPadRight)) inputLog = "DPad Right Pressed\n";
+        
+        float dpadHorizontal = Input.GetAxis(StaticStrings.DPadHorizontal);
+        float dpadVertical = Input.GetAxis(StaticStrings.DPadVertical);
+
+        // 检查DPad上方向
+        if (dpadVertical > threshold && !isDPadUpPressed)
+        {
+            inputLog += "DPad Up Pressed\n";
+            isDPadUpPressed = true;
+        }
+        else if (dpadVertical <= threshold && isDPadUpPressed)
+        {
+            isDPadUpPressed = false;  // 重置状态
+        }
+
+        // 检查DPad下方向
+        if (dpadVertical < -threshold && !isDPadDownPressed)
+        {
+            inputLog += "DPad Down Pressed\n";
+            isDPadDownPressed = true;
+        }
+        else if (dpadVertical >= -threshold && isDPadDownPressed)
+        {
+            isDPadDownPressed = false;  // 重置状态
+        }
+
+        // 检查DPad左方向
+        if (dpadHorizontal < -threshold && !isDPadLeftPressed)
+        {
+            inputLog += "DPad Left Pressed\n";
+            isDPadLeftPressed = true;
+        }
+        else if (dpadHorizontal >= -threshold && isDPadLeftPressed)
+        {
+            isDPadLeftPressed = false;  // 重置状态
+        }
+
+        // 检查DPad右方向
+        if (dpadHorizontal > threshold && !isDPadRightPressed)
+        {
+            inputLog += "DPad Right Pressed\n";
+            isDPadRightPressed = true;
+        }
+        else if (dpadHorizontal <= threshold && isDPadRightPressed)
+        {
+            isDPadRightPressed = false;  // 重置状态
+        }
 #endif
 
         // 检查LT和RT是否“按下”
@@ -138,15 +185,16 @@ public class XboxControllerFullTest : MonoBehaviour
             float rightStickH = Input.GetAxis(StaticStrings.RightHorizontal);
             float rightStickV = Input.GetAxis(StaticStrings.RightVertical);
 
-            inputLog += $"Left Stick - Horizontal: {leftStickH}, Vertical: {leftStickV}\n";
-            inputLog += $"Right Stick - Horizontal: {rightStickH}, Vertical: {rightStickV}\n";
+            inputLog = $"Left Stick - Horizontal: {leftStickH}, Vertical: {leftStickV}\n";
+            inputLog = $"Right Stick - Horizontal: {rightStickH}, Vertical: {rightStickV}\n";
         }
 
         // 显示并输出到Console
         if (!string.IsNullOrEmpty(inputLog))
         {
-            displayText.text = inputLog;  // 显示到UI
+            
             Debug.Log(inputLog);  // 输出到Console
+            displayText.text = inputLog;  // 显示到UI
         }
     }
 }
