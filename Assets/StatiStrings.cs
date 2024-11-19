@@ -7,8 +7,8 @@ namespace IT
     public static class StaticStrings
     {
         // 通用的输入名称
-        public static string DPadVertical = isWindows ? "DPadVertical" : "DPadVerticalW";
-        public static string DPadHorizontal = isWindows ? "DPadHorizontal" : "DPadHorizontalW";
+        public static string DPadVertical = isWindows ? "DPadVerticalW" : "DPadVertical";
+        public static string DPadHorizontal = isWindows ? "DPadHorizontalW" : "DPadHorizontal";
         public static string Vertical = "Vertical";
         public static string Horizontal = "Horizontal";
         public static string B = "B";
@@ -21,8 +21,8 @@ namespace IT
         public static string LB = "LB";
         public static string L = "L";
         public static string R = "R";
-        public static string RightVertical = isWindows ? "RightVertical" : "RightVerticalW";
-        public static string RightHorizontal = isWindows ? "RightHorizontal" : "RightHorizontalW";
+        public static string RightVertical = isWindows ? "RightVerticalW" : "RightVertical";
+        public static string RightHorizontal = isWindows ? "RightHorizontalW" : "RightHorizontal";
 
         public static string View = "View";
         public static string Menu = "Menu";
