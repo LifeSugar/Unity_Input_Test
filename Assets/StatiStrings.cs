@@ -7,13 +7,8 @@ namespace IT
     public static class StaticStrings
     {
         // 通用的输入名称
-        public static string DPadVertical = "DPadVertical";
-        public static string DPadHorizontal = "DPadHorizontal";
-        public static string DPadLeft = "DPadHorizontal"; // Windows上DPad左右为Horizontal轴
-        public static string DPadRight = "DPadHorizontal"; // Windows上DPad左右为Horizontal轴
-        public static string DPadUp = "DPadVertical"; // Windows上DPad上下为Vertical轴
-        public static string DPadDown = "DPadVertical"; // Windows上DPad上下为Vertical轴
-
+        public static string DPadVertical = isWindows ? "DPadVertical" : "DPadVerticalW";
+        public static string DPadHorizontal = isWindows ? "DPadHorizontal" : "DPadHorizontalW";
         public static string Vertical = "Vertical";
         public static string Horizontal = "Horizontal";
         public static string B = "B";
@@ -26,10 +21,13 @@ namespace IT
         public static string LB = "LB";
         public static string L = "L";
         public static string R = "R";
-        public static string RightVertical = "RightVertical";
-        public static string RightHorizontal = "RightHorizontal";
+        public static string RightVertical = isWindows ? "RightVertical" : "RightVerticalW";
+        public static string RightHorizontal = isWindows ? "RightHorizontal" : "RightHorizontalW";
 
         public static string View = "View";
         public static string Menu = "Menu";
+
+        public static bool isWindows = (Application.platform == RuntimePlatform.WindowsPlayer ||
+                                        Application.platform == RuntimePlatform.WindowsEditor);
     }
 }
