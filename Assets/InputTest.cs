@@ -9,6 +9,10 @@ public class PS4ControllerTest : MonoBehaviour
     // 用于跟踪D-Pad的上一次状态
     private float lastDPadHorizontal = 0f;
     private float lastDPadVertical = 0f;
+    public bool isWindows = StaticStrings.isWindows;
+
+    public string rv = StaticStrings.RightVertical;
+    public string rh = StaticStrings.RightHorizontal;
 
     // 用于累积显示的信息
     private string displayText = "";
